@@ -23,7 +23,7 @@ const TareasList = () => {
             await fetch(`http://localhost:5000/tareas/${tareas[idx].id}`, {
                 method: 'DELETE'
             });
-            setTareas(tareas.filter(i => i !== idx));
+            setTareas(tareas.filter((val, i) => i !== idx));
         } catch (err) {
             console.log(err);
         }
