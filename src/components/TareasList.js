@@ -6,10 +6,11 @@ import FormTarea from './FormTarea';
 const TareasList = () => {
     const [tareas, setTareas] = useState([]);
     const [showForm, setShowForm] = useState(false);
+
     useEffect(() => {
         const fetchTareas = async () => {
             try {
-                const response = await fetch('http://localhost:5000/tareas');
+                const response = await fetch(process.env.REACT_APP_API);
                 return response.json();
             } catch (err) {
                 console.log(err);
@@ -20,7 +21,7 @@ const TareasList = () => {
 
     const deleteTarea = async (idx) => {
         try {
-            await fetch(`http://localhost:5000/tareas/${tareas[idx].id}`, {
+            await fetch(`${process.env.REACT_APP_API}/${tareas[idx].id}`, {
                 method: 'DELETE'
             });
             setTareas(tareas.filter((val, i) => i !== idx));
@@ -32,10 +33,13 @@ const TareasList = () => {
 
     const createTarea = (data) => {
         try {
-            let nuevoId = tareas.reduce((acc, curr) => parseInt(acc.id) > parseInt(curr.id) ? acc : curr);
-            nuevoId = (parseInt(nuevoId.id) + 1).toString();
+            let nuevoId = 1
+            if (tareas.length > 0) {
+                nuevoId = tareas.reduce((acc, curr) => parseInt(acc.id) > parseInt(curr.id) ? acc : curr);
+                nuevoId = (parseInt(nuevoId.id) + 1).toString();
+            }
             data = { ...data, id: nuevoId };
-            fetch('http://localhost:5000/tareas', {
+            fetch(process.env.REACT_APP_API, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

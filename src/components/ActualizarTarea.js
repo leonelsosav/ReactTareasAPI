@@ -11,7 +11,7 @@ const ActualizarTarea = () => {
     useEffect(() => {
         const fetchTareas = async () => {
             try {
-                const response = await fetch('http://localhost:5000/tareas');
+                const response = await fetch(process.env.REACT_APP_API);
                 return response.json();
             } catch (err) {
                 console.log(err);
@@ -21,7 +21,6 @@ const ActualizarTarea = () => {
     }, []);
 
     const openEditForm = (idx) => {
-        setShowForm(false);
         setIdAEditar(tareas[idx]._id);
         setFormData({
             nombre: tareas[idx].name, materia: tareas[idx].materia,
@@ -31,7 +30,7 @@ const ActualizarTarea = () => {
     }
 
     const updateTareas = (data) => {
-        fetch(`http://localhost:5000/tareas/${idAEditar}`, {
+        fetch(`${process.env.REACT_APP_API}/${idAEditar}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
