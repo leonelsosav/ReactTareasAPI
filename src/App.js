@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TareasList from "./components/TareasList"
 import ActualizarTarea from "./components/ActualizarTarea"
+import TareasListClass from "./components/TareasListClass"
 
 function App() {
   return (
@@ -15,12 +16,16 @@ function App() {
               <li className="navbar-item">
                 <Link to="/actualizar" className="nav-link">Actualizar Tarea</Link>
               </li>
+              <li className="navbar-item">
+                <Link to="/tareas" className="nav-link">Tareas class</Link>
+              </li>
             </ul>
           </div>
         </nav>
         <br />
         <Route exact path="/" component={TareasList} />
         <Route exact path="/actualizar" component={ActualizarTarea} />
+        <Route exact path="/tareas" component={TareasListClass} />
       </div>
     </Router>
   );
